@@ -11,7 +11,7 @@ const IssueReportForm = () => {
   const [image, setImage] = useState(null);
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
-  const [success, setSuccess] = useState("")
+
 
   const navigate = useNavigate();
   const token = getAccessToken();
@@ -51,15 +51,21 @@ const IssueReportForm = () => {
         },
       });
       setLoading(false);
-      setTimeout(() => {
-        setSuccess("Issue Reported Successfully")
-      },2000)
-      alert("Issue Reported Successfully")
+      
+      alert("Issue Reported Successfully");
+      setCategory("");
+      setDescription("");
+      setError("");
+      setImage(null);
+      setLocation("");
+      setTitle("");
       navigate("/dashboard"); // Redirect to dashboard after submission
     } catch (error) {
       setLoading(false);
       if (error.response) {
-        setError(error.response.data.error || "An error occurred. Please try again.");
+        setError(
+          error.response.data.error || "An error occurred. Please try again."
+        );
       } else {
         setError("Network error. Please check your connection.");
       }
@@ -80,7 +86,7 @@ const IssueReportForm = () => {
             className="w-full p-2 border border-gray-300 rounded"
             value={title}
             onChange={(e) => setTitle(e.target.value)}
-            />
+          />
         </div>
         <div className="mb-4">
           <label htmlFor="description" className="block text-gray-700">
@@ -92,7 +98,7 @@ const IssueReportForm = () => {
             rows="4"
             value={description}
             onChange={(e) => setDescription(e.target.value)}
-            />
+          />
         </div>
         <div className="mb-4">
           <label htmlFor="category" className="block text-gray-700">
@@ -103,7 +109,7 @@ const IssueReportForm = () => {
             className="w-full p-2 border border-gray-300 rounded"
             value={category}
             onChange={(e) => setCategory(e.target.value)}
-            >
+          >
             <option value="">Select Category</option>
             <option value="Infrastructure">Infrastructure</option>
             <option value="Public Services">Public Services</option>
@@ -122,7 +128,7 @@ const IssueReportForm = () => {
             className="w-full p-2 border border-gray-300 rounded"
             value={location}
             onChange={(e) => setLocation(e.target.value)}
-            />
+          />
         </div>
         <div className="mb-4 flex items-center space-x-4">
           <div className="flex-grow">
@@ -134,12 +140,12 @@ const IssueReportForm = () => {
               id="image"
               className="w-full p-2 border border-gray-300 rounded"
               onChange={handleFileChange}
-              />
+            />
           </div>
           <button
             onClick={handleRemoveImage}
             className="bg-red-500 text-white p-2 rounded"
-            >
+          >
             Remove Image
           </button>
         </div>
@@ -149,7 +155,7 @@ const IssueReportForm = () => {
           type="submit"
           className="bg-blue-500 text-white p-2 rounded"
           disabled={loading}
-          >
+        >
           {loading ? "Submitting..." : "Submit Issue"}
         </button>
       </form>
@@ -161,16 +167,14 @@ const IssueReportForm = () => {
           </div>
         </div>
       )}
-      {
-        success.length > 0 && (
-          <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
+      {/* {success.length > 0 && (
+        <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
           <div className="bg-white p-5 rounded-lg shadow-lg">
             <div className="animate-spin rounded-full h-10 w-10 border-b-2 border-gray-900"></div>
             <p className="mt-2">{success}</p>
           </div>
         </div>
-        )
-      }
+      )} */}
     </div>
   );
 };
