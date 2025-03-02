@@ -120,7 +120,7 @@ const IssueReportForm = () => {
         </div>
         <div className="mb-4">
           <label htmlFor="location" className="block text-gray-700">
-            Location (Optional)
+            Location
           </label>
           <input
             type="text"

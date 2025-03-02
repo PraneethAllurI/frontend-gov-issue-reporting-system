@@ -1,7 +1,8 @@
 import React from "react";
 
 const ReportCard = ({ report }) => {
-  const coordinates = report.location?.coordinates || [];
+  console.log(report)
+  //const coordinates = report.location?.coordinates || [];
 
   return (
     <div className="border p-4 rounded-md shadow-md bg-white">
@@ -14,19 +15,20 @@ const ReportCard = ({ report }) => {
             src={report.image}
             alt="Issue Report"
             className="object-cover"
-            style={{height: "200px", width:"300px"}}
+            style={{height: "100px", width:"200px"}}
           />
         </div>
       )}
 
       <p className="text-gray-600">Status: {report.status}</p>
 
-      <p className="text-gray-600">
+      {/* <p className="text-gray-600">
         Location:{" "}
         {coordinates.length === 2
           ? `Lat: ${coordinates[1]}, Lng: ${coordinates[0]}`
           : "Not Provided"}
-      </p>
+      </p> */}
+      <p>{report.location ? `Location: ${report.location}` : "Somewhere on Earth"}</p>
     </div>
   );
 };

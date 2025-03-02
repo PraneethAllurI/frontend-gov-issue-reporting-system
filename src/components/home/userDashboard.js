@@ -3,6 +3,7 @@ import api from "../../axios";
 import { useNavigate } from "react-router-dom";
 import { getAccessToken, saveAccessToken } from "../../utils/authUtils";
 import Navbar from "./navbar";
+import SkeletonReportCard from "../util Cards/skeletonReportCard";
 
 function UserDashboard() {
   const [error, setError] = useState("");
@@ -51,7 +52,7 @@ function UserDashboard() {
             setTimeout(() => navigate("/login"), 1000);
           }
         } else {
-          setError("Error fetching user data.");
+          setError("Error fetching user data due to Network issue, please refresh");
         }
       } finally {
         setLoading(false);
@@ -61,7 +62,7 @@ function UserDashboard() {
     fetchUser();
   }, []); // ✅ No `navigate` dependency to prevent infinite loop
 
-  if (loading) return <h1>Loading...</h1>;
+  if (loading) return <SkeletonReportCard />
   if (error) return <h1 className="text-red-500">{error}</h1>;
 
   return (
